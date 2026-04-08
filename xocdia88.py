@@ -65,6 +65,16 @@ def parse_data(data):
             tai_money = int(tai_money)
             xiu_money = int(xiu_money)
 
+            # ================= DỰ ĐOÁN =================
+            if tai_money > xiu_money:
+                du_doan = "Xỉu"   # tiền nhiều thường bị bẻ
+            else:
+                du_doan = "Tài"
+
+            # ================= TỶ LỆ =================
+            tong_tien = tai_money + xiu_money
+            ty_le = round((abs(tai_money - xiu_money) / tong_tien) * 100, 2)
+
             # ✅ update phiên mới
             last_session_id = session_id
 
@@ -78,7 +88,8 @@ def parse_data(data):
                 "md5": info.get("Md5Encript", ""),
                 "tai_tong_tien": tai_money,
                 "xiu_tong_tien": xiu_money,
-              
+                "du_doan": du_doan,
+                "ty_le": ty_le
             }
 
             print("✅ DATA CHUẨN:", latest_data)
